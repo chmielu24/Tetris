@@ -1,7 +1,6 @@
 #include "Game.h"
 
-Game::Game() :
-	shape(100.0f)
+Game::Game()
 {
 	rWindow = new sf::RenderWindow(sf::VideoMode(1280, 720), "Tetris", sf::Style::Default);
 
@@ -12,8 +11,6 @@ Game::Game() :
 
 	rWindow->setView(view);
 
-	shape.setFillColor(sf::Color::Green);
-	shape.setPosition(1280 / 2 - 100, 720 / 2 - 100);
 }
 
 Game::~Game()
@@ -34,7 +31,9 @@ void Game::Start()
 void Game::Update()
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+	{
 		rWindow->close();
+	}
 
 	sf::Event event;
 	while (rWindow->pollEvent(event))
@@ -48,6 +47,6 @@ void Game::Update()
 void Game::Renderer()
 {
 	rWindow->clear();
-	rWindow->draw(shape);
+
 	rWindow->display();
 }

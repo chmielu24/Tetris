@@ -16,7 +16,4 @@ public:
 private:
 	sf::RenderWindow *rWindow;
 	
-
-	sf::CircleShape shape;
-
 };
