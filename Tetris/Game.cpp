@@ -1,5 +1,7 @@
 #include "Game.h"
 
+
+
 Game::Game()
 {
 	rWindow = new sf::RenderWindow(sf::VideoMode(1280, 720), "Tetris", sf::Style::Default);
@@ -11,6 +13,9 @@ Game::Game()
 
 	rWindow->setView(view);
 
+	time = new Time(true, 1200, 10);
+
+	vGameObjects.push_back(time);
 }
 
 Game::~Game()
@@ -41,12 +46,22 @@ void Game::Update()
 		if (event.type == sf::Event::Closed)
 			rWindow->close();
 	}
+
+	for each (auto& var in vGameObjects)
+	{
+		var->Update();
+	}
 }
 
 
 void Game::Renderer()
 {
 	rWindow->clear();
+
+	for each (auto var in vGameObjects)
+	{
+		rWindow->draw(*var);
+	}
 
 	rWindow->display();
 }

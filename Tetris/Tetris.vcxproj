@@ -93,6 +93,10 @@
       <AdditionalLibraryDirectories>D:\PROGRAMOWANIE\dll\SFML-2.4.1-windows-vc14-64-bit\SFML-2.4.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /y $(ProjectDir)Images\*   $(OutDir)Images /i
+xcopy /y $(ProjectDir)Fonts\*   $(OutDir)Fonts /i</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -130,15 +134,18 @@
       </EmbedManagedResourceFile>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y $(ProjectDir)Images\*   $(OutDir)Images /i</Command>
+      <Command>xcopy /y $(ProjectDir)Images\*   $(OutDir)Images /i
+xcopy /y $(ProjectDir)Fonts\*   $(OutDir)Fonts /i</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Time.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
+    <ClInclude Include="DrawUpdate.h" />
     <ClInclude Include="Time.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
