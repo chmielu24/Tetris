@@ -4,11 +4,16 @@
 #include <thread>
 
 Game::Game() :
-	m_Window(new sf::RenderWindow(sf::VideoMode(1280, 720), "Tetris", sf::Style::Default)),
-	m_Time(new Time(true, 1150, 10)),
-	m_Thread(new sf::Thread(&Game::RendererThread, this)),
-	i_FPSMax(60)
+	m_Settegins(new Settegins("Settegins.ini")),
+	m_Thread(new sf::Thread(&Game::RendererThread, this))
 {
+	if(m_Settegins->Get().FullScreen)
+		m_Window = std::make_unique<sf::RenderWindow>(sf::VideoMode(m_Settegins->Get().ResX, m_Settegins->Get().ResY), "Tetris", sf::Style::Fullscreen);
+	else
+		m_Window = std::make_unique<sf::RenderWindow>(sf::VideoMode(m_Settegins->Get().ResX, m_Settegins->Get().ResY), "Tetris", sf::Style::Default);
+
+	m_Time = std::make_unique<Time>(m_Settegins->Get().ShowFPS, 1150, 10),
+	i_FPSMax = m_Settegins->Get().MaxFPS;
 
 	sf::View view;
 	view = m_Window->getView();
@@ -32,18 +37,12 @@ void Game::Start()
 	m_Thread->launch();
 
 	auto timeDelay = std::chrono::milliseconds(1000 / i_FPSMax);
-	auto currentTime = std::chrono::high_resolution_clock::now();
+	auto t = std::chrono::system_clock::now();
 
 	while (m_Window->isOpen())
 	{
-		auto newTime = std::chrono::high_resolution_clock::now();
-		auto frameTime = newTime - currentTime;
-		currentTime = newTime;
-
-		if (frameTime < timeDelay)
-		{
-			std::this_thread::sleep_for((timeDelay - frameTime)*2);
-		}
+		t += timeDelay;
+		std::this_thread::sleep_until(t);
 		
 		Update();
 	}

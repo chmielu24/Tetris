@@ -4,6 +4,7 @@
 #include <SFML\Graphics.hpp>
 #include "DrawUpdate.h"
 #include "Time.h"
+#include "Settegins.h"
 
 class Game
 {
@@ -29,6 +30,7 @@ protected:
 	std::vector<DrawUpdate*> v_GameObjects;
 	
 	std::unique_ptr<Time> m_Time;
+	std::unique_ptr<Settegins> m_Settegins;
 
 	int i_FPSMax;
 };
