@@ -5,11 +5,11 @@
 #include "DrawUpdate.h"
 
 
-class Time final : public DrawUpdate
+class Time : public DrawUpdate
 {
 public:
 	Time(bool showFPS, float x, float y);
-	~Time() = default;
+	virtual ~Time() = default;
 
 
 	virtual void Update() override;
@@ -25,11 +25,10 @@ public:
 		return FPSCountPerSecond;
 	}
 	
-private:
+protected:
 	static sf::Time deltaTime;
 	static int FPSCountPerSecond;
 	
-
 	sf::Time t_FPSClock;
 	sf::Clock t_clock;
 
@@ -37,6 +36,4 @@ private:
 	int i_FPS;
 	sf::Text m_FPSText;
 	sf::Font m_Font;
-
-
 };
