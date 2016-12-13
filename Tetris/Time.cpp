@@ -21,6 +21,7 @@ Time::Time(bool showFPS, float x, float y) :
 	clock.restart();
 }
 
+
 void Time::Update()
 {
 	deltaTime = clock.restart().asSeconds();
@@ -37,6 +38,7 @@ void Time::Update()
 		FPSText.setString(std::to_string(FPSCountPerSecond));
 	}
 }
+
 
 void Time::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {

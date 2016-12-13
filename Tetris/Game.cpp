@@ -20,6 +20,7 @@ Game::Game()
 
 Game::~Game()
 {
+	free(time);
 	free(rWindow);
 }
 
@@ -47,10 +48,12 @@ void Game::Update()
 			rWindow->close();
 	}
 
+
 	for each (auto& var in vGameObjects)
 	{
 		var->Update();
 	}
+
 }
 
 
