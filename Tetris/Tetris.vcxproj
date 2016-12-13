@@ -92,6 +92,7 @@
     <Link>
       <AdditionalLibraryDirectories>D:\PROGRAMOWANIE\dll\SFML-2.4.1-windows-vc14-64-bit\SFML-2.4.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y $(ProjectDir)Images\*   $(OutDir)Images /i
@@ -132,6 +133,7 @@ xcopy /y $(ProjectDir)Fonts\*   $(OutDir)Fonts /i</Command>
       </ModuleDefinitionFile>
       <EmbedManagedResourceFile>
       </EmbedManagedResourceFile>
+      <SubSystem>Windows</SubSystem>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y $(ProjectDir)Images\*   $(OutDir)Images /i

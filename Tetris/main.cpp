@@ -1,7 +1,7 @@
 #include "Game.h"
 
 
-int main()
+int WinMain(void)
 {
 	Game game;
 	game.Start();

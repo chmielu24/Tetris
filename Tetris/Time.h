@@ -5,15 +5,25 @@
 #include "DrawUpdate.h"
 
 
-class Time : public DrawUpdate
+class Time final : public DrawUpdate
 {
 public:
 	Time(bool showFPS, float x, float y);
+	~Time() = default;
 
 
 	virtual void Update() override;
 	virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const override;
 
+	static const float& GetDeltaTime() noexcept
+	{
+		return deltaTime;
+	}
+
+	static const int& GetFPSCountPerSecond() noexcept
+	{
+		return FPSCountPerSecond;
+	}
 	
 private:
 	static float deltaTime;
