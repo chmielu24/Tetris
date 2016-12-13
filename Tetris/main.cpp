@@ -3,9 +3,7 @@
 
 int WinMain(void)
 {
-	Game game;
-	game.Start();
-	
+	Game::Instance().Start();
 
-	return 0;
+	return EXIT_SUCCESS;
 }

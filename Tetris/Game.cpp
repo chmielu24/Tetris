@@ -1,36 +1,51 @@
 #include "Game.h"
+#include <time.h>
+#include <chrono>
+#include <thread>
 
-
-
-Game::Game()
+Game::Game() :
+	m_Window(new sf::RenderWindow(sf::VideoMode(1280, 720), "Tetris", sf::Style::Default)),
+	m_Time(new Time(true, 1150, 10)),
+	m_Thread(new sf::Thread(&Game::RendererThread, this)),
+	i_FPSMax(60)
 {
-	rWindow = new sf::RenderWindow(sf::VideoMode(1280, 720), "Tetris", sf::Style::Default);
 
 	sf::View view;
-	view = rWindow->getView();
+	view = m_Window->getView();
 	view.setSize(1280, 720);
 	view.setCenter(1280 / 2, 720 / 2);
+	m_Window->setView(view);
 
-	rWindow->setView(view);
+	m_Window->setFramerateLimit(i_FPSMax);
 
-	time = new Time(true, 1200, 10);
-
-	vGameObjects.push_back(time);
+	v_GameObjects.push_back( m_Time.get() );
 }
 
 Game::~Game()
 {
-	free(time);
-	free(rWindow);
 }
 
 
 void Game::Start()
 {
-	while (rWindow->isOpen())
+	m_Window->setActive(false);
+	m_Thread->launch();
+
+	auto timeDelay = std::chrono::milliseconds(1000 / i_FPSMax);
+	auto currentTime = std::chrono::high_resolution_clock::now();
+
+	while (m_Window->isOpen())
 	{
+		auto newTime = std::chrono::high_resolution_clock::now();
+		auto frameTime = newTime - currentTime;
+		currentTime = newTime;
+
+		if (frameTime < timeDelay)
+		{
+			std::this_thread::sleep_for((timeDelay - frameTime)*2);
+		}
+		
 		Update();
-		Renderer();
 	}
 }
 
@@ -38,18 +53,18 @@ void Game::Update()
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 	{
-		rWindow->close();
+		m_Window->close();
 	}
 
 	sf::Event event;
-	while (rWindow->pollEvent(event))
+	while (m_Window->pollEvent(event))
 	{
 		if (event.type == sf::Event::Closed)
-			rWindow->close();
+			m_Window->close();
 	}
 
 
-	for each (auto& var in vGameObjects)
+	for each (auto& var in v_GameObjects)
 	{
 		var->Update();
 	}
@@ -57,14 +72,18 @@ void Game::Update()
 }
 
 
-void Game::Renderer()
+void Game::RendererThread()
 {
-	rWindow->clear();
-
-	for each (auto var in vGameObjects)
+	while (m_Window->isOpen())
 	{
-		rWindow->draw(*var);
-	}
+		m_Window->clear(sf::Color::Black);
 
-	rWindow->display();
+		for each (auto& var in v_GameObjects)
+		{
+			m_Window->draw(*var);
+		}
+
+		m_Window->display();
+	}
 }
+

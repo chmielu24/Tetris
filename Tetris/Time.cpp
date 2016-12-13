@@ -2,47 +2,43 @@
 #include <SFML\Graphics.hpp>
 
 int Time::FPSCountPerSecond = 0;
-float Time::deltaTime = 0;
+sf::Time Time::deltaTime = sf::Time::Zero;
 
 Time::Time(bool showFPS, float x, float y) :
-	bShowFPS(showFPS)
+	b_ShowFPS(showFPS)
 {
-	font.loadFromFile("Fonts/8bit.TTF");
+	m_Font.loadFromFile("Fonts/8bit.TTF");
 
-	FPSText.setPosition(x, y);
-	FPSText.setCharacterSize(20);
-	FPSText.setFont(font);
+	m_FPSText.setPosition(x, y);
+	m_FPSText.setCharacterSize(20);
+	m_FPSText.setFont(m_Font);
 	
-
-	deltaTime = 0;
-	FPSCountPerSecond = 0;
-	iFPS = 0;
-	fFPSClock = 0;
-	clock.restart();
+	i_FPS = 0;
+	t_clock.restart();
 }
 
 
 void Time::Update()
 {
-	deltaTime = clock.restart().asSeconds();
+	deltaTime = t_clock.restart();
 
-	fFPSClock += deltaTime;
-	iFPS++;
+	t_FPSClock += deltaTime;
+	i_FPS++;
 
-	if (fFPSClock >= 1.0f)
+	if (t_FPSClock.asMilliseconds() >= 1000)
 	{
-		FPSCountPerSecond = iFPS;
-		iFPS = 0;
-		fFPSClock -= 1.0f;
+		t_FPSClock -= sf::milliseconds(1000);
+		FPSCountPerSecond = i_FPS;
+		i_FPS = 0;
 
-		FPSText.setString(std::to_string(FPSCountPerSecond));
+		m_FPSText.setString(std::to_string(FPSCountPerSecond));
 	}
 }
 
 
 void Time::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	if(bShowFPS)
-	target.draw(FPSText, states);
+	if(b_ShowFPS)
+	target.draw(m_FPSText, states);
 }
 

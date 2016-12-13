@@ -15,7 +15,7 @@ public:
 	virtual void Update() override;
 	virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const override;
 
-	static const float& GetDeltaTime() noexcept
+	static const sf::Time& GetDeltaTime() noexcept
 	{
 		return deltaTime;
 	}
@@ -26,17 +26,17 @@ public:
 	}
 	
 private:
-	static float deltaTime;
+	static sf::Time deltaTime;
 	static int FPSCountPerSecond;
 	
 
-	int iFPS;
-	float fFPSClock;
-	sf::Clock clock;
+	sf::Time t_FPSClock;
+	sf::Clock t_clock;
 
-	bool bShowFPS;
-	sf::Text FPSText;
-	sf::Font font;
+	bool b_ShowFPS;
+	int i_FPS;
+	sf::Text m_FPSText;
+	sf::Font m_Font;
 
 
 };
