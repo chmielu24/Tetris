@@ -141,17 +141,29 @@ xcopy /y $(ProjectDir)Fonts\*   $(OutDir)Fonts /i</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DataParser.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="SceneGame.cpp" />
+    <ClCompile Include="SceneMenu.cpp" />
+    <ClCompile Include="SceneOptions.cpp" />
     <ClCompile Include="Settegins.cpp" />
     <ClCompile Include="Time.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DataParser.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="DrawUpdate.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneGame.h" />
+    <ClInclude Include="SceneMenu.h" />
+    <ClInclude Include="SceneOptions.h" />
     <ClInclude Include="Settegins.h" />
     <ClInclude Include="SetteginsData.h" />
     <ClInclude Include="Time.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Settegins.ini" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

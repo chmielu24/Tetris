@@ -12,6 +12,8 @@ struct SetteginsData
 		FullScreen = false;
 	}
 
+	~SetteginsData() = default;
+
 
 	bool ShowFPS;
 	int MaxFPS;

@@ -11,6 +11,7 @@ public:
 	void Load();
 	void Save();
 
+
 	const SetteginsData &Get()
 	{ return data; }
 
@@ -20,5 +21,6 @@ public:
 protected:
 	SetteginsData data;
 	std::string FileName;
+	void SetDefault();
 };
 
