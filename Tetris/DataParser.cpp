@@ -13,6 +13,9 @@ DataParser::DataParser(std::string fileName, ReadWrite flag)
 		std::string str;
 		while (std::getline(File, str))
 		{
+			if (str.find("=") == std::string::npos || str.find("#") != std::string::npos || str.find("//") != std::string::npos)
+				continue;
+
 			try
 			{
 				std::string key = str.substr(0, str.find('='));
