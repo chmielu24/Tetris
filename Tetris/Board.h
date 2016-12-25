@@ -2,7 +2,7 @@
 #include <SFML\Graphics.hpp>
 #include "DrawUpdate.h"
 
-class Board :public DrawUpdate
+class Board : public DrawUpdate
 {
 public:
 	Board(int, int,int );
@@ -18,7 +18,6 @@ protected:
 	sf::Sprite **m_Blocks;
 	sf::Image img;
 	sf::Texture Tex;
-	// Inherited via DrawUpdate
 	
 };
 
