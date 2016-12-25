@@ -30,8 +30,8 @@ Board::Board(int xBlockCount, int yBlocksCount, int size)
 		for (int x = 0; x < xSize; x++)
 		{
 			m_Blocks[y][x].setTexture(Tex);
-			m_Blocks[y][x].setPosition(startX + (size+1) * x, startY + (size+1) * y);
-			m_Blocks[y][x].scale(0.1f, 0.1f);
+			m_Blocks[y][x].setPosition(startX + (size+2) * x, startY + (size+2) * y);
+			m_Blocks[y][x].setScale(float(size) / Tex.getSize().x, float(size) / Tex.getSize().y);
 		}
 
 }
