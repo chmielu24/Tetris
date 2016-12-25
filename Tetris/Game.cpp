@@ -31,16 +31,13 @@ Game::Game() :
 	Bind();
 }
 
-Game::~Game()
-{
-}
-
 void Game::Bind()
 {
 	v_GameObjects.clear();
 	v_GameObjects.push_back(m_Scene.get());
 	v_GameObjects.push_back(m_Time.get());
 }
+
 
 void Game::Start()
 {
@@ -68,16 +65,19 @@ void Game::LoadScene(std::string name)
 
 	if (name == "game")
 	    Instance().m_Scene.reset(new SceneGame());
-	else
-	if (name == "menu")
+	else if (name == "menu")
 		Instance().m_Scene.reset(new SceneMenu());
-	else
-		if (name == "options")
+	else if (name == "options")
 		Instance().m_Scene.reset(new SceneOptions());
 
 	Bind();
 	b_stopRenderer = false;
 	b_rendererStoped = false;
+}
+
+void Game::ExitGame()
+{
+	m_Window->close();
 }
 
 void Game::Update()
@@ -114,18 +114,15 @@ void Game::RendererThread()
 
 void Game::Events()
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-	{
-		m_Window->close();
-	}
-
 	sf::Event event;
 	while (m_Window->pollEvent(event))
 	{
 		if (event.type == sf::Event::Closed)
 			m_Window->close();
+
+		m_Scene->Events(event);
+
 	}
 
-	m_Scene->Events();
 }
 

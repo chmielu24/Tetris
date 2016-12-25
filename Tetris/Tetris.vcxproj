@@ -87,10 +87,10 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\PROGRAMOWANIE\dll\SFML-2.4.1-windows-vc14-64-bit\SFML-2.4.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\SFML-2.4.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>D:\PROGRAMOWANIE\dll\SFML-2.4.1-windows-vc14-64-bit\SFML-2.4.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\SFML-2.4.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
     </Link>
@@ -122,12 +122,12 @@ xcopy /y $(ProjectDir)Fonts\*   $(OutDir)Fonts /i</Command>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\PROGRAMOWANIE\dll\SFML-2.4.1-windows-vc14-64-bit\SFML-2.4.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\SFML-2.4.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>D:\PROGRAMOWANIE\dll\SFML-2.4.1-windows-vc14-64-bit\SFML-2.4.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\SFML-2.4.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-graphics.lib;sfml-window.lib;sfml-system.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ModuleDefinitionFile>
       </ModuleDefinitionFile>
@@ -141,6 +141,7 @@ xcopy /y $(ProjectDir)Fonts\*   $(OutDir)Fonts /i</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Board.cpp" />
     <ClCompile Include="DataParser.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
@@ -151,6 +152,7 @@ xcopy /y $(ProjectDir)Fonts\*   $(OutDir)Fonts /i</Command>
     <ClCompile Include="Time.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Board.h" />
     <ClInclude Include="DataParser.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="DrawUpdate.h" />

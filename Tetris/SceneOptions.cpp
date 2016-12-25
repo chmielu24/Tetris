@@ -22,15 +22,12 @@ void SceneOptions::draw(sf::RenderTarget & target, sf::RenderStates states) cons
 
 void SceneOptions::Update()
 {
+	
 }
 
-void SceneOptions::Events()
+void SceneOptions::Events(sf::Event &event)
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::G))
-	{
-		Game::Instance().LoadScene("game");
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::M))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 	{
 		Game::Instance().LoadScene("menu");
 	}

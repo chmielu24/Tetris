@@ -3,6 +3,7 @@
 
 SceneGame::SceneGame()
 	:SceneName("Game", m_Font, 30)
+	,m_board(12,18,30)
 {
 	m_Font.loadFromFile("Fonts/8bit.TTF");
 
@@ -12,26 +13,22 @@ SceneGame::SceneGame()
 		textRect.top + textRect.height / 2.0f);
 
 	SceneName.setPosition(0, 0);
-
 }
 
 void SceneGame::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
-	target.draw(SceneName);
+	target.draw(m_board);
 }
 
 void SceneGame::Update()
 {
+	
 }
 
-void SceneGame::Events()
+void SceneGame::Events(sf::Event &event)
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::M))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 	{
 		Game::Instance().LoadScene("menu");
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::O))
-	{
-		Game::Instance().LoadScene("options");
 	}
 }

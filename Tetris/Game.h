@@ -12,10 +12,11 @@
 class Game
 {
 public:
-	virtual ~Game();
+	virtual ~Game() = default;
 	void Start();
 
 	void LoadScene(std::string);
+	void ExitGame();
 	static Game& Instance()
 	{
 		static Game game;
