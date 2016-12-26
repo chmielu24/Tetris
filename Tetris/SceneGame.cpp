@@ -3,7 +3,7 @@
 
 SceneGame::SceneGame()
 	:SceneName("Game", m_Font, 30)
-	,m_board(12,18,30)
+	,m_board(16,20,30)
 {
 	m_Font.loadFromFile("Fonts/8bit.TTF");
 

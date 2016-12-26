@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML\Graphics.hpp>
 #include "DrawUpdate.h"
+#include <SFML\System\Vector2.hpp>
 
 class Board : public DrawUpdate
 {
@@ -16,6 +17,7 @@ protected:
 	int ySize;
 	
 	sf::Sprite **m_Blocks;
+	sf::Vector2f **m_positions;
 	sf::Image img;
 	sf::Texture Tex;
 	
