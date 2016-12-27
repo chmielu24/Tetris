@@ -1,5 +1,6 @@
 #include "Time.h"
 #include <SFML\Graphics.hpp>
+#include "AssetsLoader.h"
 
 int Time::FPSCountPerSecond = 0;
 sf::Time Time::deltaTime = sf::Time::Zero;
@@ -7,7 +8,7 @@ sf::Time Time::deltaTime = sf::Time::Zero;
 Time::Time(bool showFPS, float x, float y) :
 	b_ShowFPS(showFPS)
 {
-	m_Font.loadFromFile("Fonts/8bit.TTF");
+	m_Font = AssetsLoader::GetAssets().Font1;
 
 	m_FPSText.setPosition(x, y);
 	m_FPSText.setCharacterSize(20);

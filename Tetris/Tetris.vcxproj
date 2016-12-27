@@ -141,7 +141,9 @@ xcopy /y $(ProjectDir)Fonts\*   $(OutDir)Fonts /i</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AssetsLoader.cpp" />
     <ClCompile Include="Board.cpp" />
+    <ClCompile Include="BoardBlock.cpp" />
     <ClCompile Include="DataParser.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
@@ -152,7 +154,10 @@ xcopy /y $(ProjectDir)Fonts\*   $(OutDir)Fonts /i</Command>
     <ClCompile Include="Time.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AssetsLoader.h" />
+    <ClInclude Include="BlockType.h" />
     <ClInclude Include="Board.h" />
+    <ClInclude Include="BoardBlock.h" />
     <ClInclude Include="DataParser.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="DrawUpdate.h" />

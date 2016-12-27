@@ -1,45 +1,38 @@
 #include "Board.h"
 
 #include <SFML/Graphics/Sprite.hpp>
-
+#include "Time.h"
 
 
 Board::Board(int xBlockCount, int yBlocksCount, int size)
 {
 	xSize = xBlockCount;
 	ySize = yBlocksCount;
+	BlockSize = size;
 
-	int startX = -320, startY = 0;
+	xBoard = -320;
+	yBoard = 0;
 
-	startX -= xSize * size / 2;
-	startY -= ySize * size / 2;
+	xBoard -= xSize * size / 2;
+	yBoard -= ySize * size / 2;
 
 
-	img.loadFromFile("Images/background.png");
-	Tex.loadFromImage(img, sf::IntRect(0, 0, img.getSize().x, img.getSize().y));
 	
+	m_BoardBlock = new BoardBlock*[ySize];
 
-
-	m_Blocks = new sf::Sprite*[ySize];
-	m_positions = new sf::Vector2f*[ySize];
 	for (int i = 0; i < ySize; i++)
 	{
-		m_Blocks[i] = new sf::Sprite[xSize];
-		m_positions[i] = new sf::Vector2f[xSize];
-
+		m_BoardBlock[i] = new BoardBlock[xSize];
 	}
 
 	for(int y = 0 ; y < ySize; y++)
-		for (int x = 0; x < xSize; x++)
+		for(int x = 0; x < xSize; x++)
 		{
-			m_Blocks[y][x].setTexture(Tex);
-			m_Blocks[y][x].setScale(float(size) / Tex.getSize().x, float(size) / Tex.getSize().y);
-
-			m_positions[y][x].x = startX + (size)* x;
-			m_positions[y][x].y = startY + (size)* y;
-
-			m_Blocks[y][x].setPosition(m_positions[y][x]);
+			m_BoardBlock[y][x].Create(xBoard + (size)* x, yBoard + (size)* y, size);
 		}
+
+
+	RespawnBlock();
 }
 
 
@@ -47,12 +40,10 @@ Board::~Board()
 {
 	for (int i = 0; i < ySize; i++)
 	{
-		delete []m_Blocks[i];
-		delete[]m_positions[i];
+		delete []m_BoardBlock[i];
 	}
 
-	delete []m_Blocks;
-	delete[]m_positions;
+	delete []m_BoardBlock;
 }
 
 
@@ -61,11 +52,19 @@ void Board::draw(sf::RenderTarget & target, sf::RenderStates states) const
 	for (int y = 0; y < ySize; y++)
 		for (int x = 0; x < xSize; x++)
 		{
-			target.draw(m_Blocks[y][x]);
+			m_BoardBlock[y][x].draw(target, states);
 		}
+	
+
 }
 
 
 void Board::Update()
 {
+
+}
+
+void Board::RespawnBlock()
+{
+
 }

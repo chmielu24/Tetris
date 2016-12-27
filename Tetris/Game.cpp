@@ -11,6 +11,7 @@ Game::Game() :
 	b_rendererStoped(false),
 	b_stopRenderer(false)
 {
+
 	if(m_Settegins->Get().FullScreen)
 		m_Window = std::make_unique<sf::RenderWindow>(sf::VideoMode(m_Settegins->Get().ResX, m_Settegins->Get().ResY), "Tetris", sf::Style::Fullscreen);
 	else

@@ -5,7 +5,7 @@ SceneGame::SceneGame()
 	:SceneName("Game", m_Font, 30)
 	,m_board(16,20,30)
 {
-	m_Font.loadFromFile("Fonts/8bit.TTF");
+	m_Font = AssetsLoader::GetAssets().Font1;
 
 	sf::FloatRect textRect = SceneName.getLocalBounds();
 
@@ -22,7 +22,7 @@ void SceneGame::draw(sf::RenderTarget & target, sf::RenderStates states) const
 
 void SceneGame::Update()
 {
-	
+	m_board.Update();
 }
 
 void SceneGame::Events(sf::Event &event)

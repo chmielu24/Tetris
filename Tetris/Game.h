@@ -8,6 +8,7 @@
 #include "Time.h"
 #include "Settegins.h"
 #include "Scene.h"
+#include "AssetsLoader.h"
 
 class Game
 {
@@ -17,6 +18,7 @@ public:
 
 	void LoadScene(std::string);
 	void ExitGame();
+
 	static Game& Instance()
 	{
 		static Game game;
@@ -29,7 +31,6 @@ protected:
 	void RendererThread();
 	void Events();
 	void Bind();
-
 
 	std::unique_ptr<sf::RenderWindow> m_Window;
 	std::unique_ptr<sf::Thread> m_Thread;

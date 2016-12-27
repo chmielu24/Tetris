@@ -1,6 +1,7 @@
 #include "SceneMenu.h"
 #include "Game.h"
 #include <string.h>
+#include "AssetsLoader.h"
 
 SceneMenu::SceneMenu()
 	:m_SceneOptions
@@ -10,7 +11,7 @@ SceneMenu::SceneMenu()
 	,i_selectedOptions(0)
 {
 
-	m_Font.loadFromFile("Fonts/8bit.TTF");
+	m_Font = AssetsLoader::GetAssets().Font1;
 	sf::FloatRect textRect;
 
 	for (int i = 0; i < 3; i++)
