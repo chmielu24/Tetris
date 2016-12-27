@@ -14,7 +14,7 @@ Project is code in Visual Studio c++ 2015 / 2017. Reository include Windows x64 
 
 ### Installing
 
-Project is setting up to windows x64 for change platform download and replace SFML Libraries. 
+Project is setting up to windows x64 for change platform download and replace SFML Libraries. Don't forget to copy the SFML DLLs (they are in <sfml-install-path/dll>) to the directory where your compiled executable is.
 
 [SFML and Visual studio guide](http://www.sfml-dev.org/tutorials/2.0/start-vc.php)
 
