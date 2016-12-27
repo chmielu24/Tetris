@@ -10,7 +10,8 @@ These instructions will get you a copy of the project up and running on your loc
 
 What things you need to install the software and how to install them
 
-Project is code in Visual Studio c++ 2015 / 2017. Reository include Windows x64 SFML Libary.
+Visual Studio (best 2015 or 2017)
+SFML Libary (included in repository)
 
 ### Installing
 
