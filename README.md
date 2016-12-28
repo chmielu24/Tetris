@@ -1,6 +1,4 @@
-# Project Title
-
-Tetris game in c++
+# Tetris game in c++
 
 ## Getting Started
 
