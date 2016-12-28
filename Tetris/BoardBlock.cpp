@@ -11,7 +11,7 @@ void BoardBlock::setType(BlockType t)
 {
 	m_type = t;
 
-	switch (t)
+	switch (m_type)
 	{
 	case BlockType::empty: 	m_sprite.setTexture(AssetsLoader::GetAssets().EmptyBlock);
 		break;

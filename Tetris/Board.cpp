@@ -3,19 +3,18 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include "Time.h"
 #include "Game.h"
+#include <fstream>
 
-Board::Board(int xBlockCount, int yBlocksCount, int size) 
+Board::Board(int xBlockCount, int yBlocksCount, int size)
 	:b_GameOver(false),
 	xSize(xBlockCount),
 	ySize(yBlocksCount),
-	BlockSize(size)
+	BlockSize(size),
+	FallDownSpeed(1)
 {
-	xBoard = -320;
-	yBoard = 0;
 
-	xBoard -= xSize * size / 2;
-	yBoard -= ySize * size / 2;
-
+	xBoard = -320 - xSize * BlockSize / 2;
+	yBoard = 0 - ySize * BlockSize / 2;
 	
 	m_BoardBlock = new BoardBlock*[ySize];
 
@@ -30,16 +29,10 @@ Board::Board(int xBlockCount, int yBlocksCount, int size)
 			m_BoardBlock[y][x].Create(xBoard + (size)* x, yBoard + (size)* y, size);
 		}
 
-	BlockType t[5][5] = { 
-	{ (BlockType)0,(BlockType)2,(BlockType)2,(BlockType)2,(BlockType)2},
-	{ (BlockType)0,(BlockType)2,(BlockType)2,(BlockType)2,(BlockType)2 },
-	{ (BlockType)0,(BlockType)2,(BlockType)2,(BlockType)2,(BlockType)2 },
-	{ (BlockType)0,(BlockType)2,(BlockType)2,(BlockType)2,(BlockType)2 },
-	{ (BlockType)0,(BlockType)2,(BlockType)2,(BlockType)2,(BlockType)2 } };
-
-	FallBlock.set(t, xBoard, yBoard, BlockSize);
-
-	FallDownSpeed = 1;
+	NextBlock.setBoard(xBoard, yBoard, BlockSize);
+	FallBlock.setBoard(xBoard, yBoard, BlockSize);
+	NextBlock.setRealPosition(320, -200);
+	
 
 	RespawnBlock();
 }
@@ -65,6 +58,8 @@ void Board::draw(sf::RenderTarget &target, sf::RenderStates states) const
 		}
 
 	target.draw(FallBlock);
+
+	target.draw(NextBlock);
 }
 
 
@@ -181,6 +176,13 @@ void Board::GoDown(bool b)
 void Board::RespawnBlock()
 {
 	FallBlock.setPosition(xSize / 2, -3.5);
+
+	for(int y=0;y<5;y++)
+		for (int x = 0; x < 5; x++)
+		{
+			FallBlock.SetType(x, y, NextBlock.GetType(x, y));
+		}
+
 	CalculateYColision();
 }
 

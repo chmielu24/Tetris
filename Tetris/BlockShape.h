@@ -9,15 +9,18 @@ public:
 	BlockShape() = default;
 	~BlockShape();
 
-	void set(BlockType t[5][5], float xBoard, float yBoard, float s);
+	void setBoard(float xBoard, float yBoard, float s);
 	virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const override;
 
 	void setPosition(float x, float y);
 	void setRealPosition(float x, float y);
 	const sf::Vector2f getPosition() { return m_boardPosition; }
-
 	void move(float x, float y);
-	BlockType GetType(int x, int y) { return m_Block[y][x].getType(); }
+
+	const BlockType GetType(int x, int y) { return m_Block[y][x].getType(); }
+	void SetType(int x, int y, BlockType type) { m_Block[y][x].setType(type); }
+	void SetType(BlockType t[5][5]);
+	void SetType(BlockShape t);
 
 protected:
 	BoardBlock m_Block[5][5];

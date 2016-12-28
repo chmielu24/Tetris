@@ -41,5 +41,7 @@ protected:
 	int i_fallBlockYColision;
 	BlockShape FallBlock;
 	BlockShape NextBlock;
+
+	std::vector<BlockShape> BlockShapeList;
 };
 

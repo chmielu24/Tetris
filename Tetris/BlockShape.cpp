@@ -16,7 +16,7 @@ BlockShape::~BlockShape()
 }
 
 
-void BlockShape::set(BlockType t[5][5], float x, float y, float s)
+void BlockShape::setBoard(float x, float y, float s)
 {
 	BlockSize = s;
 	xBoard = x;
@@ -26,8 +26,21 @@ void BlockShape::set(BlockType t[5][5], float x, float y, float s)
 		for (int x = 0; x < 5; x++)
 		{
 			m_Block[y][x].Create(x, y, s);
-			m_Block[y][x].setType(t[y][x]);
 		}
+}
+
+void BlockShape::SetType(BlockType t[5][5])
+{
+	for (int y = 0; y < 5; y++)
+		for (int x = 0; x < 5; x++)
+			m_Block[y][x].setType(t[y][x]);
+}
+
+void BlockShape::SetType(BlockShape t)
+{
+	for (int y = 0; y < 5; y++)
+		for (int x = 0; x < 5; x++)
+			m_Block[y][x].setType(t.m_Block[y][x].getType());
 }
 
 void BlockShape::setPosition(float x1, float y1)
