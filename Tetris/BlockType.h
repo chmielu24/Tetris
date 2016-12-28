@@ -2,8 +2,10 @@
 
 enum class BlockType
 {
-	empty,
-	red,
-	green,
-	blue
+
+	none = 0,
+	empty = 1,
+	red = 2,
+	green = 3,
+	blue = 4
 };

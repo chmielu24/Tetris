@@ -31,4 +31,30 @@ void SceneGame::Events(sf::Event &event)
 	{
 		Game::Instance().LoadScene("menu");
 	}
+
+	if (event.type == sf::Event::KeyPressed)
+	{
+		if (event.key.code == sf::Keyboard::Left)
+		{
+			m_board.MoveX(-1);
+		}
+
+		if (event.key.code == sf::Keyboard::Right)
+		{
+			m_board.MoveX(1);
+		}
+
+		if (event.key.code == sf::Keyboard::Down)
+		{
+			m_board.GoDown(true);
+		}
+	}
+
+	if (event.type == sf::Event::KeyReleased)
+	{
+		if (event.key.code == sf::Keyboard::Down)
+		{
+			m_board.GoDown(false);
+		}
+	}
 }

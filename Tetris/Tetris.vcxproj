@@ -146,6 +146,7 @@ xcopy /y $(ProjectDir)Fonts\*   $(OutDir)Fonts /i</Command>
     <ClCompile Include="BoardBlock.cpp" />
     <ClCompile Include="DataParser.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="BlockShape.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SceneGame.cpp" />
     <ClCompile Include="SceneMenu.cpp" />
@@ -161,6 +162,7 @@ xcopy /y $(ProjectDir)Fonts\*   $(OutDir)Fonts /i</Command>
     <ClInclude Include="DataParser.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="DrawUpdate.h" />
+    <ClInclude Include="BlockShape.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneGame.h" />
     <ClInclude Include="SceneMenu.h" />

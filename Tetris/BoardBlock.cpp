@@ -2,35 +2,43 @@
 
 void BoardBlock::Create(float x, float y, float size)
 {
-	BlockSize = size;
-	sprite.setPosition(x,y);
+	f_BlockSize = size;
+	m_sprite.setPosition(x,y);
 	setType(BlockType::empty);
 }
 
 void BoardBlock::setType(BlockType t)
 {
-	type = t;
+	m_type = t;
 
 	switch (t)
 	{
-	case BlockType::empty: 	sprite.setTexture(AssetsLoader::GetAssets().EmptyBlock);
+	case BlockType::empty: 	m_sprite.setTexture(AssetsLoader::GetAssets().EmptyBlock);
 		break;
-	case BlockType::red: sprite.setTexture(AssetsLoader::GetAssets().RedBlock);
+	case BlockType::red: m_sprite.setTexture(AssetsLoader::GetAssets().RedBlock);
 		break;
-	case BlockType::green: sprite.setTexture(AssetsLoader::GetAssets().GreenBlock);
+	case BlockType::green: m_sprite.setTexture(AssetsLoader::GetAssets().GreenBlock);
 		break;
-	case BlockType::blue: sprite.setTexture(AssetsLoader::GetAssets().BlueBlock);
+	case BlockType::blue: m_sprite.setTexture(AssetsLoader::GetAssets().BlueBlock);
 		break;
 	default:
 		break;
 	}
 
-
-	sprite.setScale(float(BlockSize) / sprite.getTexture()->getSize().x, float(BlockSize) / sprite.getTexture()->getSize().y);
+	m_sprite.setScale(float(f_BlockSize) / m_sprite.getTexture()->getSize().x, float(f_BlockSize) / m_sprite.getTexture()->getSize().y);
 }
 
 
+void BoardBlock::setPosition(float x, float y)
+{
+	m_position.x = x;
+	m_position.y = y;
+
+	m_sprite.setPosition(m_position);
+}
+
 void BoardBlock::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
-	target.draw(sprite);
+	if(m_type != BlockType::none)
+	target.draw(m_sprite);
 }
