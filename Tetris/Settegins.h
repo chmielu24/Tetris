@@ -12,14 +12,14 @@ public:
 	void Save();
 
 
-	const SetteginsData &Get()
+	static const SetteginsData &Get()
 	{ return data; }
 
-	 SetteginsData &Set()
+	static SetteginsData &Set()
 	 { return data; }
 
 protected:
-	SetteginsData data;
+	static SetteginsData data;
 	std::string FileName;
 	void SetDefault();
 };

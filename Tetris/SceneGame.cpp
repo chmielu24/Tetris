@@ -3,7 +3,7 @@
 
 SceneGame::SceneGame()
 	:SceneName("Game", m_Font, 30)
-	, m_tetris(16,20,30)
+	, m_tetris(Settegins::Get().BoardXSize,Settegins::Get().BoardYSize,30)
 {
 	m_Font = AssetsLoader::GetAssets().Font1;
 

@@ -2,6 +2,8 @@
 #include "DataParser.h"
 #include <fstream>
 
+SetteginsData Settegins::data;
+
 Settegins::Settegins(std::string fileName)
 	:FileName(fileName)
 {
@@ -27,6 +29,8 @@ void Settegins::Load()
 			data.ResX = parser.GetInt("resx");
 			data.ResY = parser.GetInt("resy");
 			data.FullScreen = parser.Getbool("fullscreen");
+			data.BoardXSize = parser.GetInt("boardxsize");
+			data.BoardYSize = parser.GetInt("boardysize");
 		}
 		catch (std::exception e)
 		{
@@ -52,6 +56,8 @@ void Settegins::Save()
 	parser.SetInt("resx", data.ResX);
 	parser.SetInt("resy", data.ResY);
 	parser.Setbool("fullscreen", data.FullScreen);
+	parser.SetInt("boardxsize", data.BoardXSize);
+	parser.SetInt("boardysize", data.BoardYSize);
 
 	parser.Close();
 
@@ -64,4 +70,6 @@ void Settegins::SetDefault()
 	data.ResX = 1280;
 	data.ResY = 720;
 	data.FullScreen = false;
+	data.BoardXSize = 14;
+	data.BoardYSize = 18;
 }

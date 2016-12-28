@@ -10,6 +10,8 @@ struct SetteginsData
 		ResX = 1280;
 		ResY = 720;
 		FullScreen = false;
+		BoardXSize = 14;
+		BoardYSize = 18;
 	}
 
 	~SetteginsData() = default;
@@ -20,4 +22,6 @@ struct SetteginsData
 	int ResX;
 	int ResY;
 	bool FullScreen;
+	int BoardXSize;
+	int BoardYSize;
 };

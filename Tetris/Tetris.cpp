@@ -15,6 +15,15 @@ Tetris::Tetris(int xBlockCount, int yBlocksCount, int size)
 	sumTickets(0),
 	e1(r())
 {
+	if (xSize > 20)
+		xSize = 20;
+	if (xSize < 5)
+		xSize = 5;
+	if (ySize > 20)
+		ySize = 20;
+	if (ySize < 5)
+		ySize = 5;
+
 	std::ifstream File;
 	File.open("shapes.ini");
 
@@ -155,58 +164,61 @@ bool Tetris::SetBlockToBoard()
 
 void Tetris::chceckBoard()
 {
-	for (int y = 0; y < ySize; y++)
-	{
-		bool isGood = true;
-		for (int x = 0; x < xSize; x++)
+		for (int y = 0; y < ySize; y++)
 		{
-			if (m_BoardBlock[y][x].getType() == BlockType::empty)
+			bool isGood = true;
+			for (int x = 0; x < xSize; x++)
 			{
-				isGood = false;
-				break;
-			}
-		}
-
-		if (isGood)
-		{
-			for (int y1 = y; y1 > 0 ; y1--)
-			{
-				for (int x = 0; x < xSize; x++)
+				if (m_BoardBlock[y][x].getType() == BlockType::empty)
 				{
-					m_BoardBlock[y1][x].setType(m_BoardBlock[y1 - 1][x].getType());
+					isGood = false;
+					break;
 				}
 			}
 
-			if(y>1)
-			y--;
+			if (isGood)
+			{
+				for (int y1 = y; y1 > 0; y1--)
+				{
+					for (int x = 0; x < xSize; x++)
+					{
+						m_BoardBlock[y1][x].setType(m_BoardBlock[y1 - 1][x].getType());
+					}
+				}
+
+				if (y > 1)
+					y--;
+			}
 		}
-	}
+
 }
 
 void Tetris::MoveX(float offset)
 {
 	bool can = true;
-
-	for(int y = 0; y < 5; y++)
-		for (int x = 0; x < 5; x++)
-		{
-			if (FallBlock.GetType(x, y) != BlockType::none)
+		for (int y = 0; y < 5; y++)
+			for (int x = 0; x < 5; x++)
 			{
-				int x1 = FallBlock.getPosition().x + offset + x - 2;
-				int y1 = FallBlock.getPosition().y + y - 2;
+				if (FallBlock.GetType(x, y) != BlockType::none)
+				{
+					int x1 = FallBlock.getPosition().x + offset + x - 2;
+					int y1 = FallBlock.getPosition().y + y - 2;
 
-				if (y1 < 0)
-					continue;
 
-				if (x1 < 0 || x1 > xSize)
-					can = false;
-				else
-				if (m_BoardBlock[y1][x1].getType() != BlockType::empty)
-					can = false;
-				if (m_BoardBlock[y1+1][x1].getType() != BlockType::empty)
-					can = false;
+					if (x1 < 0 || x1 > xSize - 1)
+						can = false;
+					else
+						if (y1 < 0)
+							continue;
+						else
+						{
+							if (m_BoardBlock[y1][x1].getType() != BlockType::empty)
+								can = false;
+							if (m_BoardBlock[y1 + 1][x1].getType() != BlockType::empty)
+								can = false;
+						}
+				}
 			}
-		}
 
 	if(can && !b_GameOver)
 	FallBlock.move(offset,0);
@@ -237,32 +249,33 @@ void Tetris::RespawnBlock()
 
 void Tetris::CalculateYColision()
 {
-	i_fallBlockYColision = ySize +1;
+	i_fallBlockYColision = ySize + 1;
 
-	for (int y = 0; y < 5; y++)
-		for (int x = 0; x < 5; x++)
-		{
-			if (FallBlock.GetType(x, y) != BlockType::none)
+		for (int y = 0; y < 5; y++)
+			for (int x = 0; x < 5; x++)
 			{
-				int x1 = FallBlock.getPosition().x + x - 2;
-				int y1 = FallBlock.getPosition().y + y - 2;
-
-				if (y1 < 0)
-					y1 = 0;
-
-				for (int i = y1; i < ySize; i++)
+				if (FallBlock.GetType(x, y) != BlockType::none)
 				{
-					if (m_BoardBlock[i][x1].getType() != BlockType::empty)
-					{
-						if (i - y + 2 < i_fallBlockYColision)
-							i_fallBlockYColision = i - y + 2;
-					}
-				}
+					int x1 = FallBlock.getPosition().x + x - 2;
+					int y1 = FallBlock.getPosition().y + y - 2;
 
-				if (ySize - y + 2 < i_fallBlockYColision)
-					i_fallBlockYColision = ySize - y + 2;
+					if (y1 < 0)
+						y1 = 0;
+
+					for (int i = y1; i < ySize; i++)
+					{
+						if (m_BoardBlock[i][x1].getType() != BlockType::empty)
+						{
+							if (i - y + 2 < i_fallBlockYColision)
+								i_fallBlockYColision = i - y + 2;
+						}
+					}
+
+					if (ySize - y + 2 < i_fallBlockYColision)
+						i_fallBlockYColision = ySize - y + 2;
+				}
 			}
-		}
+
 }
 
 
@@ -291,7 +304,7 @@ void Tetris::Rotate(int i)
 				int x1 = b.getPosition().x + x - 2;
 				int y1 = b.getPosition().y + y - 2;
 
-				if (x1 < 0 || x1 > xSize || y1 > ySize)
+				if (x1 < 0 || x1 > xSize -1 || y1 > ySize)
 					collision = true;
 				else 
 					if (y1 > 0)
