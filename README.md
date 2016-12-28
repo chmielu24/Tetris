@@ -1,6 +1,4 @@
-# Project Title
-
-Tetris game in c++
+# Tetris game in c++
 
 ## Getting Started
 
@@ -25,7 +23,7 @@ Project is setting up to windows x64 for change platform download and replace SF
 
 ## Authors
 
-* **Dawid Kozioł** - *Author* - [PurpleBooth](https://github.com/chmielu42)
+* **Dawid Kozioł** - *Author* - [Page](https://github.com/chmielu42)
 
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
