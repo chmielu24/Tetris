@@ -7,7 +7,7 @@ class BlockShape : public sf::Drawable
 {
 public:
 	BlockShape() = default;
-	~BlockShape();
+	~BlockShape() = default;
 
 	void setBoard(float xBoard, float yBoard, float s);
 	virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const override;
@@ -17,10 +17,16 @@ public:
 	const sf::Vector2f getPosition() { return m_boardPosition; }
 	void move(float x, float y);
 
+	void RotateLeft();
+	void RotateRight();
+
 	const BlockType GetType(int x, int y) { return m_Block[y][x].getType(); }
 	void SetType(int x, int y, BlockType type) { m_Block[y][x].setType(type); }
 	void SetType(BlockType t[5][5]);
 	void SetType(BlockShape t);
+
+	void setChance(int i) { chance = i; }
+	const int getChance() { return chance; }
 
 protected:
 	BoardBlock m_Block[5][5];
@@ -30,4 +36,5 @@ protected:
 	int xBoard;
 	int yBoard;
 	int BlockSize;
+	int chance;
 };

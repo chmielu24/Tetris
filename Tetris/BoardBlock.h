@@ -10,7 +10,7 @@ public:
 	BoardBlock() = default;
 	~BoardBlock() = default;
 
-	void Create(float, float, float);
+	void Initialize(float xPos, float yPos, float BlockSize);
 
 
 	void setType(BlockType);

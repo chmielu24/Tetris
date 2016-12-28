@@ -1,17 +1,46 @@
-#include "Board.h"
+#include "Tetris.h"
 
 #include <SFML/Graphics/Sprite.hpp>
 #include "Time.h"
 #include "Game.h"
 #include <fstream>
+#include <iostream>
 
-Board::Board(int xBlockCount, int yBlocksCount, int size)
+Tetris::Tetris(int xBlockCount, int yBlocksCount, int size)
 	:b_GameOver(false),
 	xSize(xBlockCount),
 	ySize(yBlocksCount),
 	BlockSize(size),
-	FallDownSpeed(1)
+	FallDownSpeed(1),
+	sumTickets(0),
+	e1(r())
 {
+	std::ifstream File;
+	File.open("shapes.ini");
+
+	while (!File.eof())
+	{
+		BlockType t[5][5];
+		int i;
+
+		for (int y = 0; y < 5; y++)
+			for (int x = 0; x < 5; x++)
+			{
+				File >> i;
+				t[y][x] = (BlockType)i;
+			}
+
+		File >> i;
+		BlockShape b;
+		b.setBoard(xBoard, yBoard, BlockSize);
+		b.SetType(t);
+		b.setChance(i);
+
+		BlockShapeList.push_back(b);
+	}
+	for each (auto var in BlockShapeList)
+		sumTickets += var.getChance();
+
 
 	xBoard = -320 - xSize * BlockSize / 2;
 	yBoard = 0 - ySize * BlockSize / 2;
@@ -26,19 +55,19 @@ Board::Board(int xBlockCount, int yBlocksCount, int size)
 	for(int y = 0 ; y < ySize; y++)
 		for(int x = 0; x < xSize; x++)
 		{
-			m_BoardBlock[y][x].Create(xBoard + (size)* x, yBoard + (size)* y, size);
+			m_BoardBlock[y][x].Initialize(xBoard + (size)* x, yBoard + (size)* y, size);
 		}
 
 	NextBlock.setBoard(xBoard, yBoard, BlockSize);
 	FallBlock.setBoard(xBoard, yBoard, BlockSize);
 	NextBlock.setRealPosition(320, -200);
 	
-
+	RandNextShape();
 	RespawnBlock();
 }
 
 
-Board::~Board()
+Tetris::~Tetris()
 {
 	for (int i = 0; i < ySize; i++)
 	{
@@ -49,7 +78,25 @@ Board::~Board()
 }
 
 
-void Board::draw(sf::RenderTarget &target, sf::RenderStates states) const
+void Tetris::RandNextShape()
+{
+	std::uniform_int_distribution<int> uniform_dist(0, sumTickets-1);
+
+	int rand = uniform_dist(e1);
+
+	for each (auto var in BlockShapeList)
+	{
+		if (var.getChance() > rand)
+		{
+			NextBlock.SetType(var);
+			break;
+		}
+
+		rand -= var.getChance();
+	}
+}
+
+void Tetris::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	for (int y = 0; y < ySize; y++)
 		for (int x = 0; x < xSize; x++)
@@ -63,7 +110,7 @@ void Board::draw(sf::RenderTarget &target, sf::RenderStates states) const
 }
 
 
-void Board::Update()
+void Tetris::Update()
 {
 	if (b_GameOver == false)
 	{
@@ -82,7 +129,7 @@ void Board::Update()
 	}
 }
 
-bool Board::SetBlockToBoard()
+bool Tetris::SetBlockToBoard()
 {
 	for (int y = 0; y < 5; y++)
 		for (int x = 0; x < 5; x++)
@@ -106,7 +153,7 @@ bool Board::SetBlockToBoard()
 	return true;
 }
 
-void Board::chceckBoard()
+void Tetris::chceckBoard()
 {
 	for (int y = 0; y < ySize; y++)
 	{
@@ -136,7 +183,7 @@ void Board::chceckBoard()
 	}
 }
 
-void Board::MoveX(float offset)
+void Tetris::MoveX(float offset)
 {
 	bool can = true;
 
@@ -167,13 +214,13 @@ void Board::MoveX(float offset)
 	CalculateYColision();
 }
 
-void Board::GoDown(bool b)
+void Tetris::GoDown(bool b)
 {
 	b_goDown = b;
 }
 
 
-void Board::RespawnBlock()
+void Tetris::RespawnBlock()
 {
 	FallBlock.setPosition(xSize / 2, -3.5);
 
@@ -184,9 +231,11 @@ void Board::RespawnBlock()
 		}
 
 	CalculateYColision();
+
+	RandNextShape();
 }
 
-void Board::CalculateYColision()
+void Tetris::CalculateYColision()
 {
 	i_fallBlockYColision = ySize +1;
 
@@ -214,4 +263,49 @@ void Board::CalculateYColision()
 					i_fallBlockYColision = ySize - y + 2;
 			}
 		}
+}
+
+
+void Tetris::Rotate(int i)
+{
+	BlockShape b;
+	b.setBoard(xBoard, yBoard, BlockSize);
+	b.SetType(FallBlock);
+	b.setPosition(FallBlock.getPosition().x, FallBlock.getPosition().y);
+
+	if (i > 0)
+	{
+		b.RotateRight();
+	}
+	else
+	{
+		b.RotateLeft();
+	}
+
+	bool collision = false;
+	for (int y = 0; y < 5; y++)
+		for (int x = 0; x < 5; x++)
+		{
+			if (b.GetType(x, y) != BlockType::none)
+			{
+				int x1 = b.getPosition().x + x - 2;
+				int y1 = b.getPosition().y + y - 2;
+
+				if (x1 < 0 || x1 > xSize || y1 > ySize)
+					collision = true;
+				else 
+					if (y1 > 0)
+					{
+						if (m_BoardBlock[y1][x1].getType() != BlockType::empty)
+							collision = true;
+					}
+
+			}
+		}
+
+	if (!collision)
+	{
+		FallBlock.SetType(b);
+		CalculateYColision();
+	}
 }

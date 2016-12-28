@@ -3,7 +3,7 @@
 
 SceneGame::SceneGame()
 	:SceneName("Game", m_Font, 30)
-	,m_board(16,20,30)
+	, m_tetris(16,20,30)
 {
 	m_Font = AssetsLoader::GetAssets().Font1;
 
@@ -17,12 +17,12 @@ SceneGame::SceneGame()
 
 void SceneGame::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
-	target.draw(m_board);
+	target.draw(m_tetris);
 }
 
 void SceneGame::Update()
 {
-	m_board.Update();
+	m_tetris.Update();
 }
 
 void SceneGame::Events(sf::Event &event)
@@ -36,17 +36,27 @@ void SceneGame::Events(sf::Event &event)
 	{
 		if (event.key.code == sf::Keyboard::Left)
 		{
-			m_board.MoveX(-1);
+			m_tetris.MoveX(-1);
 		}
 
 		if (event.key.code == sf::Keyboard::Right)
 		{
-			m_board.MoveX(1);
+			m_tetris.MoveX(1);
 		}
 
 		if (event.key.code == sf::Keyboard::Down)
 		{
-			m_board.GoDown(true);
+			m_tetris.GoDown(true);
+		}
+
+		if (event.key.code == sf::Keyboard::Z)
+		{
+			m_tetris.Rotate(-1);
+		}
+
+		if (event.key.code == sf::Keyboard::X)
+		{
+			m_tetris.Rotate(1);
 		}
 	}
 
@@ -54,7 +64,7 @@ void SceneGame::Events(sf::Event &event)
 	{
 		if (event.key.code == sf::Keyboard::Down)
 		{
-			m_board.GoDown(false);
+			m_tetris.GoDown(false);
 		}
 	}
 }

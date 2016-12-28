@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Scene.h"
-#include "Board.h"
+#include "Tetris.h"
 #include <SFML\Graphics.hpp>
 
 class SceneGame : public Scene
@@ -19,5 +19,5 @@ protected:
 	sf::Text SceneName;
 	sf::Font m_Font;
 
-	Board m_board;
+	Tetris m_tetris;
 };

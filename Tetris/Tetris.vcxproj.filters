@@ -39,9 +39,6 @@
     <ClCompile Include="SceneOptions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Board.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="BoardBlock.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -49,6 +46,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="BlockShape.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Tetris.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -83,9 +83,6 @@
     <ClInclude Include="SceneOptions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Board.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="BoardBlock.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -98,9 +95,15 @@
     <ClInclude Include="BlockShape.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Tetris.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Settegins.ini">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="shapes.ini">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

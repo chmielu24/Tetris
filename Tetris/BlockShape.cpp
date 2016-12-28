@@ -10,11 +10,54 @@ void BlockShape::draw(sf::RenderTarget & target, sf::RenderStates states) const
 
 }
 
-BlockShape::~BlockShape()
+
+void BlockShape::RotateLeft()
 {
-	
+	for (int y = 0; y < 5; y++)
+	{
+		for (int x = y+1; x < 5; x++)
+		{
+			auto tmp = m_Block[y][x].getType();
+			m_Block[y][x].setType(m_Block[x][y].getType());
+			m_Block[x][y].setType(tmp);
+		}
+	}
+
+	for (int y = 0; y < 2; y++)
+	{
+		for (int x = 0; x < 5; x++)
+		{
+			auto tmp = m_Block[y][x].getType();
+			m_Block[y][x].setType(m_Block[4-y][x].getType());
+			m_Block[4-y][x].setType(tmp);
+		}
+	}
+
 }
 
+void BlockShape::RotateRight()
+{
+	for (int y = 0; y < 5; y++)
+	{
+		for (int x = y+1; x < 5; x++)
+		{
+			auto tmp = m_Block[y][x].getType();
+			m_Block[y][x].setType(m_Block[x][y].getType());
+			m_Block[x][y].setType(tmp);
+		}
+	}
+
+	for (int y = 0; y < 5; y++)
+	{
+		for (int x = 0; x < 2; x++)
+		{
+			auto tmp = m_Block[y][x].getType();
+			m_Block[y][x].setType(m_Block[y][4-x].getType());
+			m_Block[y][4-x].setType(tmp);
+		}
+	}
+
+}
 
 void BlockShape::setBoard(float x, float y, float s)
 {
@@ -25,7 +68,7 @@ void BlockShape::setBoard(float x, float y, float s)
 	for (int y = 0; y < 5; y++)
 		for (int x = 0; x < 5; x++)
 		{
-			m_Block[y][x].Create(x, y, s);
+			m_Block[y][x].Initialize(x, y, s);
 		}
 }
 

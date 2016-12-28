@@ -6,17 +6,20 @@
 #include <vector>
 #include "BoardBlock.h"
 #include "BlockShape.h"
+#include <random>
 
-class Board : public DrawUpdate
+
+class Tetris : public DrawUpdate
 {
 public:
-	Board(int, int,int );
-	virtual ~Board();
+	Tetris(int, int,int );
+	virtual ~Tetris();
 
 	virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 	virtual void Update() override;
 
 	void MoveX(float offsetX);
+	void Rotate(int);
 	void GoDown(bool);
 
 protected:
@@ -24,6 +27,7 @@ protected:
 	void CalculateYColision();
 	bool SetBlockToBoard();
 	void chceckBoard();
+	void RandNextShape();
 
 	int xSize;
 	int ySize;
@@ -35,13 +39,19 @@ protected:
 	float FallDownSpeed;
 	bool b_goDown;
 	bool b_GameOver;
+	int i_fallBlockYColision;
+
 	
 	BoardBlock **m_BoardBlock;
 
-	int i_fallBlockYColision;
 	BlockShape FallBlock;
 	BlockShape NextBlock;
 
 	std::vector<BlockShape> BlockShapeList;
+
+
+	std::random_device r;
+	std::default_random_engine e1;
+	int sumTickets;
 };
 

@@ -1,6 +1,6 @@
 #include "BoardBlock.h"
 
-void BoardBlock::Create(float x, float y, float size)
+void BoardBlock::Initialize(float x, float y, float size)
 {
 	f_BlockSize = size;
 	m_sprite.setPosition(x,y);
@@ -25,6 +25,7 @@ void BoardBlock::setType(BlockType t)
 		break;
 	}
 
+	if(m_type != BlockType::none)
 	m_sprite.setScale(float(f_BlockSize) / m_sprite.getTexture()->getSize().x, float(f_BlockSize) / m_sprite.getTexture()->getSize().y);
 }
 

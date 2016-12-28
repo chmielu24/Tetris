@@ -142,7 +142,7 @@ xcopy /y $(ProjectDir)Fonts\*   $(OutDir)Fonts /i</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AssetsLoader.cpp" />
-    <ClCompile Include="Board.cpp" />
+    <ClCompile Include="Tetris.cpp" />
     <ClCompile Include="BoardBlock.cpp" />
     <ClCompile Include="DataParser.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -157,7 +157,7 @@ xcopy /y $(ProjectDir)Fonts\*   $(OutDir)Fonts /i</Command>
   <ItemGroup>
     <ClInclude Include="AssetsLoader.h" />
     <ClInclude Include="BlockType.h" />
-    <ClInclude Include="Board.h" />
+    <ClInclude Include="Tetris.h" />
     <ClInclude Include="BoardBlock.h" />
     <ClInclude Include="DataParser.h" />
     <ClInclude Include="Game.h" />
@@ -173,6 +173,7 @@ xcopy /y $(ProjectDir)Fonts\*   $(OutDir)Fonts /i</Command>
   </ItemGroup>
   <ItemGroup>
     <None Include="Settegins.ini" />
+    <None Include="shapes.ini" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
