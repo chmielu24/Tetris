@@ -31,6 +31,7 @@ void Settegins::Load()
 			data.FullScreen = parser.Getbool("fullscreen");
 			data.BoardXSize = parser.GetInt("boardxsize");
 			data.BoardYSize = parser.GetInt("boardysize");
+			data.FallSpeed = parser.GetFloat("fallspeed");
 		}
 		catch (std::exception e)
 		{
@@ -58,6 +59,7 @@ void Settegins::Save()
 	parser.Setbool("fullscreen", data.FullScreen);
 	parser.SetInt("boardxsize", data.BoardXSize);
 	parser.SetInt("boardysize", data.BoardYSize);
+	parser.SetFloat("fallspeed", data.FallSpeed);
 
 	parser.Close();
 
@@ -72,4 +74,5 @@ void Settegins::SetDefault()
 	data.FullScreen = false;
 	data.BoardXSize = 14;
 	data.BoardYSize = 18;
+	data.FallSpeed = 1.0f;
 }

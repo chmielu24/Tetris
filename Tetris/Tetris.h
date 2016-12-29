@@ -21,6 +21,7 @@ public:
 	void MoveX(float offsetX);
 	void Rotate(int);
 	void GoDown(bool);
+	const int GetScore() { return i_Score; }
 
 protected:
 	void RespawnBlock();
@@ -28,6 +29,7 @@ protected:
 	bool SetBlockToBoard();
 	void chceckBoard();
 	void RandNextShape();
+	void AddScore(int score);
 
 	int xSize;
 	int ySize;
@@ -42,6 +44,10 @@ protected:
 	bool b_goDown;
 	bool b_GameOver;
 	int i_fallBlockYColision;
+
+	sf::Font m_Font;
+	sf::Text m_Score;
+	int i_Score;
 
 	
 	BoardBlock **m_BoardBlock;

@@ -12,6 +12,7 @@ struct SetteginsData
 		FullScreen = false;
 		BoardXSize = 14;
 		BoardYSize = 18;
+		FallSpeed = 1.0f;
 	}
 
 	~SetteginsData() = default;
@@ -24,4 +25,5 @@ struct SetteginsData
 	bool FullScreen;
 	int BoardXSize;
 	int BoardYSize;
+	float FallSpeed;
 };

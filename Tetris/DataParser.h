@@ -21,9 +21,12 @@ public:
 
 	int GetInt(std::string name);
 	bool Getbool(std::string name);
+	float GetFloat(std::string name);
 
 	void SetInt(std::string name, int val);
 	void Setbool(std::string name, bool val);
+	void SetFloat(std::string name, float val);
+
 
 protected:
 	std::string FileName;

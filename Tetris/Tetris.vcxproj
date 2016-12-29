@@ -96,7 +96,8 @@
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y $(ProjectDir)Images\*   $(OutDir)Images /i
-xcopy /y $(ProjectDir)Fonts\*   $(OutDir)Fonts /i</Command>
+xcopy /y $(ProjectDir)Fonts\*   $(OutDir)Fonts /i
+xcopy /y $(ProjectDir)Config\*   $(OutDir)Config /i</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -173,8 +174,8 @@ xcopy /y $(ProjectDir)Fonts\*   $(OutDir)Fonts /i</Command>
     <ClInclude Include="Time.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Settegins.ini" />
-    <None Include="shapes.ini" />
+    <None Include="Config\Settegins.ini" />
+    <None Include="Config\shapes.ini" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

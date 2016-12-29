@@ -16,8 +16,6 @@ public:
 	virtual void Events(sf::Event&) override;
 
 protected:
-	sf::Text SceneName;
-	sf::Font m_Font;
 
 	Tetris m_tetris;
 };

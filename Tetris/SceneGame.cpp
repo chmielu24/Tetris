@@ -1,18 +1,11 @@
 #include "SceneGame.h"
 #include "Game.h"
+#include "defines.h"
 
 SceneGame::SceneGame()
-	:SceneName("Game", m_Font, 30)
-	, m_tetris(Settegins::Get().BoardXSize,Settegins::Get().BoardYSize,30)
+	:m_tetris(Settegins::Get().BoardXSize,Settegins::Get().BoardYSize,BOARD_BLOCK_SIZE)
 {
-	m_Font = AssetsLoader::GetAssets().Font1;
-
-	sf::FloatRect textRect = SceneName.getLocalBounds();
-
-	SceneName.setOrigin(textRect.left + textRect.width / 2.0f,
-		textRect.top + textRect.height / 2.0f);
-
-	SceneName.setPosition(0, 0);
+	
 }
 
 void SceneGame::draw(sf::RenderTarget & target, sf::RenderStates states) const
@@ -23,6 +16,8 @@ void SceneGame::draw(sf::RenderTarget & target, sf::RenderStates states) const
 void SceneGame::Update()
 {
 	m_tetris.Update();
+
+
 }
 
 void SceneGame::Events(sf::Event &event)

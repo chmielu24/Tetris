@@ -12,14 +12,17 @@ Tetris::Tetris(int xBlockCount, int yBlockCount, int size)
 	xSize(clamp(xBlockCount, MAX_BOARD_SIZE_X, MIN_BOARD_SIZE_X)),
 	ySize(clamp(yBlockCount, MAX_BOARD_SIZE_Y, MIN_BOARD_SIZE_Y)),
 	BlockSize(size),
-	FallDownSpeed(FALL_DOWN_SPEED),
+	FallDownSpeed(clamp(Settegins::Get().FallSpeed, FALL_DOWN_SPEED_MAX, FALL_DOWN_SPEED_MIN)),
 	FallDownSpeedFast(FALL_DOWN_SPEED_FAST),
 	sumTickets(0),
-	e1(r())
+	e1(r()),
+	i_Score(0),
+	m_Font(AssetsLoader::GetAssets().Font1),
+	m_Score("Score 0", m_Font, 30)
 {
 	
 	std::ifstream File;
-	File.open("shapes.ini");
+	File.open(SHAPES_FILE);
 
 	while (!File.eof())
 	{
@@ -44,7 +47,11 @@ Tetris::Tetris(int xBlockCount, int yBlockCount, int size)
 	for each (auto var in BlockShapeList)
 		sumTickets += var.getChance();
 
-
+	sf::FloatRect textRect = m_Score.getLocalBounds();
+	m_Score.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
+	m_Score.setPosition(320, 0);
+	
+		
 	xBoard = -320 - xSize * BlockSize / 2;
 	yBoard = 0 - ySize * BlockSize / 2;
 	
@@ -65,6 +72,7 @@ Tetris::Tetris(int xBlockCount, int yBlockCount, int size)
 	FallBlock.setBoard(xBoard, yBoard, BlockSize);
 	NextBlock.setRealPosition(320, -200);
 	
+	AddScore(0);
 	RandNextShape();
 	RespawnBlock();
 }
@@ -99,6 +107,13 @@ void Tetris::RandNextShape()
 	}
 }
 
+void Tetris::AddScore(int score)
+{
+	i_Score += score;
+
+	m_Score.setString("Score " + std::to_string(i_Score));
+}
+
 void Tetris::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	for (int y = 0; y < ySize; y++)
@@ -108,8 +123,8 @@ void Tetris::draw(sf::RenderTarget &target, sf::RenderStates states) const
 		}
 
 	target.draw(FallBlock);
-
 	target.draw(NextBlock);
+	target.draw(m_Score);
 }
 
 
@@ -153,6 +168,7 @@ bool Tetris::SetBlockToBoard()
 
 	chceckBoard();
 
+	AddScore( SCORE_FROM_PUT_BLOCK);
 	return true;
 }
 
@@ -182,6 +198,8 @@ void Tetris::chceckBoard()
 
 				if (y > 1)
 					y--;
+
+				AddScore(SCORE_FORM_SET_LINE);
 			}
 		}
 

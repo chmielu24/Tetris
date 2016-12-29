@@ -7,7 +7,7 @@
 #include "defines.h"
 
 Game::Game() :
-	m_Settegins(new Settegins("Settegins.ini")),
+	m_Settegins(new Settegins(SETTEGINS_FILE)),
 	m_Thread(new sf::Thread(&Game::RendererThread, this)),
 	m_Scene(new SceneMenu()),
 	b_rendererStoped(false),

@@ -75,6 +75,11 @@ bool DataParser::Getbool(std::string name)
 		return false;
 }
 
+float DataParser::GetFloat(std::string name)
+{
+	return stof(values[name]);
+}
+
 void DataParser::SetInt(std::string name, int val)
 {
 	if (File.is_open() && Flag == ReadWrite::Write)
@@ -91,6 +96,14 @@ void DataParser::Setbool(std::string name, bool val)
 			File << name << "=" << "true" << "\n";
 		else
 			File << name << "=" << "false" << "\n";
+	}
+}
+
+void DataParser::SetFloat(std::string name, float val)
+{
+	if (File.is_open() && Flag == ReadWrite::Write)
+	{
+		File << name << "=" << val << "\n";
 	}
 }
 

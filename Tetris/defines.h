@@ -4,10 +4,16 @@
 #define MIN_BOARD_SIZE_X 5
 #define MAX_BOARD_SIZE_Y 20
 #define MIN_BOARD_SIZE_Y 5
-#define FALL_DOWN_SPEED 1.0
-#define FALL_DOWN_SPEED_FAST 15.0
+#define FALL_DOWN_SPEED_MIN 0.5f
+#define FALL_DOWN_SPEED_MAX 10.0f
+#define FALL_DOWN_SPEED_FAST 20.0
+#define BOARD_BLOCK_SIZE 30
+#define SCORE_FROM_PUT_BLOCK 5
+#define SCORE_FORM_SET_LINE 100
 
 
+#define SETTEGINS_FILE "Config/Settegins.ini"
+#define SHAPES_FILE "Config/shapes.ini"
 
 
 
