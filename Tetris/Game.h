@@ -17,6 +17,7 @@ public:
 	void Start();
 
 	void LoadScene(std::string);
+	void SetFrameLimit(int);
 	void ExitGame();
 
 	static Game& Instance()

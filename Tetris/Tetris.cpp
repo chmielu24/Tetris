@@ -5,25 +5,19 @@
 #include "Game.h"
 #include <fstream>
 #include <iostream>
+#include "defines.h"
 
-Tetris::Tetris(int xBlockCount, int yBlocksCount, int size)
+Tetris::Tetris(int xBlockCount, int yBlockCount, int size)
 	:b_GameOver(false),
-	xSize(xBlockCount),
-	ySize(yBlocksCount),
+	xSize(clamp(xBlockCount, MAX_BOARD_SIZE_X, MIN_BOARD_SIZE_X)),
+	ySize(clamp(yBlockCount, MAX_BOARD_SIZE_Y, MIN_BOARD_SIZE_Y)),
 	BlockSize(size),
-	FallDownSpeed(1),
+	FallDownSpeed(FALL_DOWN_SPEED),
+	FallDownSpeedFast(FALL_DOWN_SPEED_FAST),
 	sumTickets(0),
 	e1(r())
 {
-	if (xSize > 20)
-		xSize = 20;
-	if (xSize < 5)
-		xSize = 5;
-	if (ySize > 20)
-		ySize = 20;
-	if (ySize < 5)
-		ySize = 5;
-
+	
 	std::ifstream File;
 	File.open("shapes.ini");
 
@@ -124,7 +118,7 @@ void Tetris::Update()
 	if (b_GameOver == false)
 	{
 		if (b_goDown)
-			FallBlock.move(0, 15 * Time::GetDeltaTime().asSeconds());
+			FallBlock.move(0, FallDownSpeedFast * Time::GetDeltaTime().asSeconds());
 		else
 			FallBlock.move(0, FallDownSpeed * Time::GetDeltaTime().asSeconds());
 

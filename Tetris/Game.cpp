@@ -1,8 +1,10 @@
 #include <time.h>
+#include <cstdint>
 #include "Game.h"
 #include "SceneMenu.h"
 #include "SceneGame.h"
 #include "SceneOptions.h"
+#include "defines.h"
 
 Game::Game() :
 	m_Settegins(new Settegins("Settegins.ini")),
@@ -25,11 +27,15 @@ Game::Game() :
 	view.setCenter(0, 0);
 	m_Window->setView(view);
 
-	m_Window->setFramerateLimit(m_Settegins->Get().MaxFPS);
-	timeDelay = std::chrono::milliseconds(1000 / m_Settegins->Get().MaxFPS);
-
+	SetFrameLimit(clamp(m_Settegins->Get().MaxFPS, MAX_FPS, MIN_FPS) );
 
 	Bind();
+}
+
+void Game::SetFrameLimit(int maxFps)
+{
+	m_Window->setFramerateLimit(maxFps);
+	timeDelay = std::chrono::milliseconds(1000 / maxFps);
 }
 
 void Game::Bind()

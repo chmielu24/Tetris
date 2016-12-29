@@ -37,6 +37,8 @@ protected:
 	int BlockSize;
 
 	float FallDownSpeed;
+	float FallDownSpeedFast;
+
 	bool b_goDown;
 	bool b_GameOver;
 	int i_fallBlockYColision;

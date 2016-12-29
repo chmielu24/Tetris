@@ -142,6 +142,7 @@ xcopy /y $(ProjectDir)Fonts\*   $(OutDir)Fonts /i</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AssetsLoader.cpp" />
+    <ClCompile Include="defines.h" />
     <ClCompile Include="Tetris.cpp" />
     <ClCompile Include="BoardBlock.cpp" />
     <ClCompile Include="DataParser.cpp" />
