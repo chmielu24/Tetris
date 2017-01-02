@@ -25,8 +25,6 @@ Project is setting up to windows x64 for change platform download and replace SF
 
 * **Dawid Kozioł** - *Author* - [Page](https://github.com/chmielu42)
 
-See also the list of [contributors](https://github.com/chmielu42/Tetris/contributors) who participated in this project.
-
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
