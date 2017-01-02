@@ -7,12 +7,13 @@
 #include "BoardBlock.h"
 #include "BlockShape.h"
 #include <random>
+#include <memory>
 
 
 class Tetris : public DrawUpdate
 {
 public:
-	Tetris(int, int,int );
+	Tetris(int, int, int, int);
 	virtual ~Tetris();
 
 	virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
@@ -44,13 +45,14 @@ protected:
 	bool b_goDown;
 	bool b_GameOver;
 	int i_fallBlockYColision;
+	int Dificult;
 
 	sf::Font m_Font;
 	sf::Text m_Score;
 	int i_Score;
 
 	
-	BoardBlock **m_BoardBlock;
+	std::vector<std::vector<std::unique_ptr<BoardBlock>>> m_BoardBlock;
 
 	BlockShape FallBlock;
 	BlockShape NextBlock;

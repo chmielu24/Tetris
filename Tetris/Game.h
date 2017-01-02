@@ -18,6 +18,7 @@ public:
 
 	void LoadScene(std::string);
 	void SetFrameLimit(int);
+	void SaveSettegins() { m_Settegins->Save(); }
 	void ExitGame();
 
 	static Game& Instance()

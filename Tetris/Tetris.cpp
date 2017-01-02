@@ -7,7 +7,7 @@
 #include <iostream>
 #include "defines.h"
 
-Tetris::Tetris(int xBlockCount, int yBlockCount, int size)
+Tetris::Tetris(int xBlockCount, int yBlockCount, int size, int dificult)
 	:b_GameOver(false),
 	xSize(clamp(xBlockCount, MAX_BOARD_SIZE_X, MIN_BOARD_SIZE_X)),
 	ySize(clamp(yBlockCount, MAX_BOARD_SIZE_Y, MIN_BOARD_SIZE_Y)),
@@ -18,27 +18,33 @@ Tetris::Tetris(int xBlockCount, int yBlockCount, int size)
 	e1(r()),
 	i_Score(0),
 	m_Font(AssetsLoader::GetAssets().Font1),
-	m_Score("Score 0", m_Font, 30)
-{
-	
+	m_Score("Score 0", m_Font, 30),
+	Dificult(dificult)
+	{
+
+	xBoard = (-320 - xSize * BlockSize / 2);
+	yBoard = (0 - ySize * BlockSize / 2);
+
+	NextBlock.setBoard(xBoard, yBoard, BlockSize);
+	FallBlock.setBoard(xBoard, yBoard, BlockSize);
+
 	std::ifstream File;
 	File.open(SHAPES_FILE);
 
 	while (!File.eof())
 	{
-		BlockType t[5][5];
+		BlockType t[SHAPE_SIZE][SHAPE_SIZE];
 		int i;
 
-		for (int y = 0; y < 5; y++)
-			for (int x = 0; x < 5; x++)
+		for (int y = 0; y < SHAPE_SIZE; y++)
+			for (int x = 0; x < SHAPE_SIZE; x++)
 			{
 				File >> i;
 				t[y][x] = (BlockType)i;
 			}
 
 		File >> i;
-		BlockShape b;
-		b.setBoard(xBoard, yBoard, BlockSize);
+		BlockShape b(xBoard, yBoard, BlockSize);
 		b.SetType(t);
 		b.setChance(i);
 
@@ -51,25 +57,21 @@ Tetris::Tetris(int xBlockCount, int yBlockCount, int size)
 	m_Score.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
 	m_Score.setPosition(320, 0);
 	
-		
-	xBoard = -320 - xSize * BlockSize / 2;
-	yBoard = 0 - ySize * BlockSize / 2;
 	
-	m_BoardBlock = new BoardBlock*[ySize];
-
-	for (int i = 0; i < ySize; i++)
+	for (int y = 0; y < ySize; y++)
 	{
-		m_BoardBlock[i] = new BoardBlock[xSize];
-	}
+		std::vector<std::unique_ptr<BoardBlock>> col;
 
-	for(int y = 0 ; y < ySize; y++)
-		for(int x = 0; x < xSize; x++)
+		for (int x = 0; x <xSize; x++)
 		{
-			m_BoardBlock[y][x].Initialize(xBoard + (size)* x, yBoard + (size)* y, size);
+			col.push_back(std::make_unique<BoardBlock>(BoardBlock(xBoard + (size)* x, yBoard + (size)* y, size)));
 		}
 
-	NextBlock.setBoard(xBoard, yBoard, BlockSize);
-	FallBlock.setBoard(xBoard, yBoard, BlockSize);
+		m_BoardBlock.push_back(std::move(col));
+	}
+
+
+
 	NextBlock.setRealPosition(320, -200);
 	
 	AddScore(0);
@@ -80,12 +82,6 @@ Tetris::Tetris(int xBlockCount, int yBlockCount, int size)
 
 Tetris::~Tetris()
 {
-	for (int i = 0; i < ySize; i++)
-	{
-		delete [] m_BoardBlock[i];
-	}
-
-	delete [] m_BoardBlock;
 }
 
 
@@ -119,7 +115,7 @@ void Tetris::draw(sf::RenderTarget &target, sf::RenderStates states) const
 	for (int y = 0; y < ySize; y++)
 		for (int x = 0; x < xSize; x++)
 		{
-			target.draw(m_BoardBlock[y][x]);
+			m_BoardBlock[y][x]->draw(target, states);
 		}
 
 	target.draw(FallBlock);
@@ -135,7 +131,7 @@ void Tetris::Update()
 		if (b_goDown)
 			FallBlock.move(0, FallDownSpeedFast * Time::GetDeltaTime().asSeconds());
 		else
-			FallBlock.move(0, FallDownSpeed * Time::GetDeltaTime().asSeconds());
+			FallBlock.move(0, (FallDownSpeed +(Dificult - 1) * 2) * Time::GetDeltaTime().asSeconds());
 
 		if (FallBlock.getPosition().y >= i_fallBlockYColision - 1)
 		{
@@ -149,8 +145,8 @@ void Tetris::Update()
 
 bool Tetris::SetBlockToBoard()
 {
-	for (int y = 0; y < 5; y++)
-		for (int x = 0; x < 5; x++)
+	for (int y = 0; y < SHAPE_SIZE; y++)
+		for (int x = 0; x < SHAPE_SIZE; x++)
 		{
 			if (FallBlock.GetType(x, y) != BlockType::none)
 			{
@@ -162,7 +158,7 @@ bool Tetris::SetBlockToBoard()
 				{
 					return false;
 				}
-				m_BoardBlock[y1][x1].setType(FallBlock.GetType(x, y));
+				m_BoardBlock[y1][x1]->setType(FallBlock.GetType(x, y));
 			}
 		}
 
@@ -179,7 +175,7 @@ void Tetris::chceckBoard()
 			bool isGood = true;
 			for (int x = 0; x < xSize; x++)
 			{
-				if (m_BoardBlock[y][x].getType() == BlockType::empty)
+				if (m_BoardBlock[y][x]->getType() == BlockType::empty)
 				{
 					isGood = false;
 					break;
@@ -192,7 +188,7 @@ void Tetris::chceckBoard()
 				{
 					for (int x = 0; x < xSize; x++)
 					{
-						m_BoardBlock[y1][x].setType(m_BoardBlock[y1 - 1][x].getType());
+						m_BoardBlock[y1][x]->setType(m_BoardBlock[y1 - 1][x]->getType());
 					}
 				}
 
@@ -208,8 +204,8 @@ void Tetris::chceckBoard()
 void Tetris::MoveX(float offset)
 {
 	bool can = true;
-		for (int y = 0; y < 5; y++)
-			for (int x = 0; x < 5; x++)
+		for (int y = 0; y < SHAPE_SIZE; y++)
+			for (int x = 0; x < SHAPE_SIZE; x++)
 			{
 				if (FallBlock.GetType(x, y) != BlockType::none)
 				{
@@ -224,9 +220,9 @@ void Tetris::MoveX(float offset)
 							continue;
 						else
 						{
-							if (m_BoardBlock[y1][x1].getType() != BlockType::empty)
+							if (m_BoardBlock[y1][x1]->getType() != BlockType::empty)
 								can = false;
-							if (m_BoardBlock[y1 + 1][x1].getType() != BlockType::empty)
+							if (m_BoardBlock[y1 + 1][x1]->getType() != BlockType::empty)
 								can = false;
 						}
 				}
@@ -263,8 +259,8 @@ void Tetris::CalculateYColision()
 {
 	i_fallBlockYColision = ySize + 1;
 
-		for (int y = 0; y < 5; y++)
-			for (int x = 0; x < 5; x++)
+		for (int y = 0; y < SHAPE_SIZE; y++)
+			for (int x = 0; x < SHAPE_SIZE; x++)
 			{
 				if (FallBlock.GetType(x, y) != BlockType::none)
 				{
@@ -276,7 +272,7 @@ void Tetris::CalculateYColision()
 
 					for (int i = y1; i < ySize; i++)
 					{
-						if (m_BoardBlock[i][x1].getType() != BlockType::empty)
+						if (m_BoardBlock[i][x1]->getType() != BlockType::empty)
 						{
 							if (i - y + 2 < i_fallBlockYColision)
 								i_fallBlockYColision = i - y + 2;
@@ -293,8 +289,7 @@ void Tetris::CalculateYColision()
 
 void Tetris::Rotate(int i)
 {
-	BlockShape b;
-	b.setBoard(xBoard, yBoard, BlockSize);
+	BlockShape b(xBoard, yBoard, BlockSize);
 	b.SetType(FallBlock);
 	b.setPosition(FallBlock.getPosition().x, FallBlock.getPosition().y);
 
@@ -308,8 +303,8 @@ void Tetris::Rotate(int i)
 	}
 
 	bool collision = false;
-	for (int y = 0; y < 5; y++)
-		for (int x = 0; x < 5; x++)
+	for (int y = 0; y < SHAPE_SIZE; y++)
+		for (int x = 0; x < SHAPE_SIZE; x++)
 		{
 			if (b.GetType(x, y) != BlockType::none)
 			{
@@ -321,7 +316,7 @@ void Tetris::Rotate(int i)
 				else 
 					if (y1 > 0)
 					{
-						if (m_BoardBlock[y1][x1].getType() != BlockType::empty)
+						if (m_BoardBlock[y1][x1]->getType() != BlockType::empty)
 							collision = true;
 					}
 

@@ -7,6 +7,7 @@
 class BoardBlock :public sf::Drawable
 {
 public:
+	BoardBlock(float xPos, float yPos, float BlockSize);
 	BoardBlock() = default;
 	~BoardBlock() = default;
 

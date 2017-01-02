@@ -1,3 +1,5 @@
+#pragma once
+
 #define MAX_FPS 1000
 #define MIN_FPS 10
 #define MAX_BOARD_SIZE_X 20
@@ -10,6 +12,7 @@
 #define BOARD_BLOCK_SIZE 30
 #define SCORE_FROM_PUT_BLOCK 5
 #define SCORE_FORM_SET_LINE 100
+#define SHAPE_SIZE 5
 
 
 #define SETTEGINS_FILE "Config/Settegins.ini"

@@ -32,6 +32,7 @@ void Settegins::Load()
 			data.BoardXSize = parser.GetInt("boardxsize");
 			data.BoardYSize = parser.GetInt("boardysize");
 			data.FallSpeed = parser.GetFloat("fallspeed");
+			data.dificult = parser.GetInt("dificult");
 		}
 		catch (std::exception e)
 		{
@@ -60,6 +61,7 @@ void Settegins::Save()
 	parser.SetInt("boardxsize", data.BoardXSize);
 	parser.SetInt("boardysize", data.BoardYSize);
 	parser.SetFloat("fallspeed", data.FallSpeed);
+	parser.SetInt("dificult", data.dificult);
 
 	parser.Close();
 
@@ -75,4 +77,5 @@ void Settegins::SetDefault()
 	data.BoardXSize = 14;
 	data.BoardYSize = 18;
 	data.FallSpeed = 1.0f;
+	data.dificult = 1;
 }

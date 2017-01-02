@@ -15,6 +15,11 @@ public:
 	virtual void Events(sf::Event&) override;
 
 protected:
-	sf::Text SceneName;
 	sf::Font m_Font;
+	sf::Text m_Options[4];
+	sf::Text m_OptionsVal[4];
+	int i_selectedOptions;
+
+private:
+	void Set();
 };

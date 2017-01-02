@@ -3,7 +3,7 @@
 #include "defines.h"
 
 SceneGame::SceneGame()
-	:m_tetris(Settegins::Get().BoardXSize,Settegins::Get().BoardYSize,BOARD_BLOCK_SIZE)
+	:m_tetris(Settegins::Get().BoardXSize,Settegins::Get().BoardYSize,BOARD_BLOCK_SIZE, Settegins::Get().dificult)
 {
 	
 }
@@ -16,8 +16,6 @@ void SceneGame::draw(sf::RenderTarget & target, sf::RenderStates states) const
 void SceneGame::Update()
 {
 	m_tetris.Update();
-
-
 }
 
 void SceneGame::Events(sf::Event &event)

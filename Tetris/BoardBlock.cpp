@@ -1,5 +1,10 @@
 #include "BoardBlock.h"
 
+BoardBlock::BoardBlock(float xPos, float yPos, float BlockSize)
+{
+	Initialize(xPos, yPos, BlockSize);
+}
+
 void BoardBlock::Initialize(float x, float y, float size)
 {
 	f_BlockSize = size;

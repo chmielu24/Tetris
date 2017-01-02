@@ -13,9 +13,10 @@ struct SetteginsData
 		BoardXSize = 14;
 		BoardYSize = 18;
 		FallSpeed = 1.0f;
+		dificult = 1;
 	}
 
-	~SetteginsData() = default;
+	virtual ~SetteginsData() = default;
 
 
 	bool ShowFPS;
@@ -26,4 +27,5 @@ struct SetteginsData
 	int BoardXSize;
 	int BoardYSize;
 	float FallSpeed;
+	int dificult;
 };
