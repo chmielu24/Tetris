@@ -8,8 +8,8 @@ These instructions will get you a copy of the project up and running on your loc
 
 What things you need to install the software and how to install them
 
-*Visual Studio (best 2015 or 2017)
-*SFML Libary (included in repository)
+* Visual Studio (best 2015 or 2017)
+* SFML Libary (included in repository)
 
 ### Installing
 
