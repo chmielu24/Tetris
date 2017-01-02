@@ -1,6 +1,6 @@
+#include <fstream>
 #include "Settegins.h"
 #include "DataParser.h"
-#include <fstream>
 
 SetteginsData Settegins::data;
 

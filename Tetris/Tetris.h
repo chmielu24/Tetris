@@ -1,13 +1,14 @@
 #pragma once
 #include <SFML\Graphics.hpp>
-#include "DrawUpdate.h"
 #include <SFML\System\Vector2.hpp>
-#include "BoardForm.h"
-#include <vector>
-#include "BoardBlock.h"
-#include "BlockShape.h"
 #include <random>
 #include <memory>
+#include <vector>
+#include "DrawUpdate.h"
+#include "BoardForm.h"
+#include "BoardBlock.h"
+#include "BlockShape.h"
+
 
 
 class Tetris : public DrawUpdate

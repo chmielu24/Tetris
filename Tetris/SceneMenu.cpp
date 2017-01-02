@@ -1,6 +1,6 @@
+#include <string.h>
 #include "SceneMenu.h"
 #include "Game.h"
-#include <string.h>
 #include "AssetsLoader.h"
 
 SceneMenu::SceneMenu()

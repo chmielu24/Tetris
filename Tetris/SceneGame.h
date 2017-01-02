@@ -1,8 +1,7 @@
 #pragma once
-
+#include <SFML\Graphics.hpp>
 #include "Scene.h"
 #include "Tetris.h"
-#include <SFML\Graphics.hpp>
 
 class SceneGame : public Scene
 {

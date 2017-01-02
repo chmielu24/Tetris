@@ -1,8 +1,8 @@
 #pragma once
+#include <SFML\Graphics.hpp>
 #include "BlockType.h"
 #include "BoardBlock.h"
 #include "defines.h"
-#include <SFML\Graphics.hpp>
 
 class BlockShape : public sf::Drawable
 {

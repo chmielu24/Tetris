@@ -1,6 +1,7 @@
 #pragma once
-#include "DrawUpdate.h"
 #include <SFML/Window/Event.hpp>
+#include "DrawUpdate.h"
+
 
 class Scene : public DrawUpdate
 {

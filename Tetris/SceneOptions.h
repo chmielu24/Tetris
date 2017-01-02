@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Scene.h"
 #include <SFML\Graphics.hpp>
+#include "Scene.h"
 
 class SceneOptions : public Scene
 {
