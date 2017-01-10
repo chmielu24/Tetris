@@ -8,6 +8,11 @@ struct Assets
 	sf::Texture RedBlock;
 	sf::Texture GreenBlock;
 	sf::Texture BlueBlock;
+	sf::Texture DarkBlock;
+	sf::Texture LightBlueBlock;
+	sf::Texture OrangeBlock;
+	sf::Texture PurpleBlock;
+	sf::Texture YellowBlock;
 
 	sf::Font Font1;
 };

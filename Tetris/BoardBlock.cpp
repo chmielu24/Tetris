@@ -26,7 +26,17 @@ void BoardBlock::setType(BlockType t)
 		break;
 	case BlockType::blue: m_sprite.setTexture(AssetsLoader::GetAssets().BlueBlock);
 		break;
-	default:
+	case BlockType::dark: m_sprite.setTexture(AssetsLoader::GetAssets().DarkBlock);
+		break;
+	case BlockType::lightblue: m_sprite.setTexture(AssetsLoader::GetAssets().LightBlueBlock);
+		break;
+	case BlockType::orange: m_sprite.setTexture(AssetsLoader::GetAssets().OrangeBlock);
+		break;
+	case BlockType::purple: m_sprite.setTexture(AssetsLoader::GetAssets().PurpleBlock);
+		break;
+	case BlockType::yellow: m_sprite.setTexture(AssetsLoader::GetAssets().YellowBlock);
+		break;
+	default: m_sprite.setTexture(AssetsLoader::GetAssets().RedBlock);
 		break;
 	}
 
