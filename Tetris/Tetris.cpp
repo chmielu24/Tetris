@@ -50,6 +50,9 @@ Tetris::Tetris(int xBlockCount, int yBlockCount, int size, int dificult)
 
 		BlockShapeList.push_back(b);
 	}
+
+	File.close();
+
 	for each (auto var in BlockShapeList)
 		sumTickets += var.getChance();
 
