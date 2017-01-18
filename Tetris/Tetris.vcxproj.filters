@@ -103,11 +103,13 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Config\Settegins.ini">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="Config\shapes.ini">
       <Filter>Resource Files</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="Config\Settegins.ini">
+      <Filter>Resource Files</Filter>
+    </ApplicationDefinition>
   </ItemGroup>
 </Project>

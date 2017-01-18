@@ -174,7 +174,9 @@ xcopy /y $(ProjectDir)Fonts\*   $(OutDir)Fonts /i</Command>
     <ClInclude Include="Time.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Config\Settegins.ini" />
+    <ApplicationDefinition Include="Config\Settegins.ini">
+      <FileType>Document</FileType>
+    </ApplicationDefinition>
     <None Include="Config\shapes.ini" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
