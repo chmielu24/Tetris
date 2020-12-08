@@ -17,7 +17,7 @@ Project is setting up to windows x64 for change platform download and replace SF
 
 [SFML and Visual studio guide](http://www.sfml-dev.org/tutorials/2.0/start-vc.php)
 
-## Built With
+## Build With
 
 * [SFML](http://www.sfml-dev.org/) - The graphics framework used
 
